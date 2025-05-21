@@ -1,32 +1,77 @@
 <script lang="ts">
+	import { fly, slide } from 'svelte/transition'
+
+	const randomDate = () => {
+		const start = new Date(2020, 0, 1)
+		const end = new Date()
+		return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
+	}
+	const randomRating = () => Math.floor(Math.random() * 6) as 0 | 1 | 2 | 3 | 4 | 5
+	const randomTags = () => {
+		const tags: string[] = []
+		const length = Math.floor(Math.random() * 6)
+		for (let i = 0; i < length; i++) {
+			tags.push(`tag ${i + 1}`)
+		}
+		return tags
+	}
+	const randomImage = () =>
+		`https://picsum.photos/id/${Math.floor(Math.random() * 60) + 30}/40/60`
+	const randomSeries = () => {
+		let series: [string, number] | null = null
+		if (Math.random() > 0.5) {
+			series = ['book series', Math.floor(Math.random() * 10) + 1]
+		}
+		return series
+	}
+	const randomAuthor = () => {
+		let authors = []
+		for (let i = 1; i <= Math.floor(Math.random() * 3) + 1; i++) {
+			authors.push(`author ${i}`)
+		}
+		return authors
+	}
+
 	let {
-		title = 'book 1: book of bookening',
-		authors = ['author 1', 'author 2'],
-		series = ['book series', 1],
+		title = 'book: book of bookening',
+		authors = randomAuthor(),
+		series = randomSeries(),
 		description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnam aliquam quaerat voluptatem.',
-		image = 'https://picsum.photos/400/600',
-		tags = ['tag 1', 'tag 2', 'tag 3'],
-		datePublished = new Date(),
-		rating = 5
+		image = randomImage(),
+		tags = randomTags(),
+		datePublished = randomDate(),
+		rating = randomRating()
 	}: {
-		title: string
-		authors: string[]
-		series: [string, number]
-		description: string
+		title?: string
+		authors?: string[]
+		series?: [string, number] | null
+		description?: string
 		image?: string
 		tags?: string[]
 		datePublished?: Date
 		rating?: 0 | 1 | 2 | 3 | 4 | 5
 	} = $props()
+
+	let imageLoaded = $state(false)
+	let imageError = $state(false)
 </script>
 
-<div class="flex w-[30ch] grow flex-col gap-6 rounded-2xl bg-white p-6 text-black lg:w-[40ch]">
+<div
+	class="flex w-full grow flex-col justify-between gap-6 rounded-2xl bg-white p-6 text-black md:w-[30ch] lg:w-[40ch]"
+>
 	<div class="flex items-stretch gap-6">
 		{#if image}
 			<img
 				src={image}
-				alt="book cover"
-				class="top-0 right-0 h-24 max-w-1/4 rounded-md object-cover"
+				alt={image}
+				class="hidden h-24 w-auto max-w-1/4 origin-left rounded-md object-cover duration-150"
+				class:opacity-0={!imageLoaded}
+				class:scale-x-0={!imageLoaded}
+				class:block={imageLoaded}
+				class:hidden={imageError}
+				onload={() => (imageLoaded = true)}
+				onerror={() => (imageError = true)}
+				loading="lazy"
 			/>
 		{/if}
 		<div class="flex grow flex-col justify-evenly tracking-widest capitalize">
@@ -43,7 +88,7 @@
 		<p>{description}</p>
 	</div>
 
-	{#if tags}
+	{#if tags.length}
 		<div>
 			<label class="italics capitalize underline">tags:</label>
 			<ul class="flex flex-wrap gap-2 pt-2">

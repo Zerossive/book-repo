@@ -3,3 +3,8 @@
 body {
 	@apply bg-black font-serif text-white;
 }
+
+/* DEBUG BORDER */
+/* * { */
+/* 	@apply ring ring-red-300; */
+/* } */

@@ -9,7 +9,7 @@
 >
 	<div class="container mx-auto space-y-3 p-6">
 		<h1
-			class="text-center text-3xl font-bold uppercase text-shadow-md first-letter:text-4xl md:text-4xl md:first-letter:text-5xl"
+			class="text-center text-3xl font-bold text-black uppercase text-shadow-white/50 text-shadow-xs first-letter:text-4xl md:text-4xl md:first-letter:text-5xl"
 		>
 			{title}
 		</h1>

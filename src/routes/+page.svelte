@@ -48,31 +48,43 @@
 </main>
 
 {#snippet bookList()}
-	<div class="flex flex-wrap gap-3 pb-6 text-black">
-		<input type="text" class="w-full rounded-md bg-white px-4 py-2" placeholder="Search" />
+	<div class="flex flex-wrap gap-3 pb-9 text-black">
+		<label class="flex w-full flex-col gap-2">
+			<span class="text-white capitalize underline">search:</span>
+			<input type="text" class="w-full rounded-md bg-white px-4 py-2" placeholder="Search" />
+		</label>
 		<!-- tags -->
-		<select class="w-[40ch] grow rounded-md bg-white px-4 py-2 capitalize">
-			<option value="tag 1">Tag 1</option>
-			<option value="tag 2">Tag 2</option>
-			<option value="tag 3">Tag 3</option>
-		</select>
+		<label class="flex w-[20ch] grow flex-col gap-2">
+			<span class="text-white capitalize underline">tags:</span>
+			<select class="w-full rounded-md bg-white px-4 py-2 capitalize">
+				<option value="tag 1">Tag 1</option>
+				<option value="tag 2">Tag 2</option>
+				<option value="tag 3">Tag 3</option>
+			</select>
+		</label>
 		<!-- rating -->
-		<select class="w-[40ch] grow rounded-md bg-white px-4 py-2 capitalize">
-			<option value="all">All</option>
-			<option value="5">5 stars</option>
-			<option value="4">4 stars</option>
-			<option value="3">3 stars</option>
-			<option value="2">2 stars</option>
-			<option value="1">1 star</option>
-		</select>
+		<label class="flex w-[20ch] grow flex-col gap-2">
+			<span class="text-white capitalize underline">rating:</span>
+			<select class="w-full rounded-md bg-white px-4 py-2 capitalize">
+				<option value="all">All</option>
+				<option value="5">5 stars</option>
+				<option value="4">4 stars</option>
+				<option value="3">3 stars</option>
+				<option value="2">2 stars</option>
+				<option value="1">1 star</option>
+			</select>
+		</label>
 		<!-- sort -->
-		<select class="w-[40ch] grow rounded-md bg-white px-4 py-2 capitalize">
-			<option value="all">Default</option>
-			<option value="newest">Newest</option>
-			<option value="oldest">Oldest</option>
-			<option value="highest">Highest</option>
-			<option value="lowest">Lowest</option>
-		</select>
+		<label class="flex w-[20ch] grow flex-col gap-2">
+			<span class="text-white capitalize underline">sort:</span>
+			<select class="w-full rounded-md bg-white px-4 py-2 capitalize">
+				<option value="all">Default</option>
+				<option value="newest">Newest</option>
+				<option value="oldest">Oldest</option>
+				<option value="highest">Highest</option>
+				<option value="lowest">Lowest</option>
+			</select>
+		</label>
 	</div>
 	<section class="flex flex-wrap gap-6" in:blur={{ delay: 150 }} out:blur={{ duration: 150 }}>
 		{#each { length: 20 } as _, i (i)}
